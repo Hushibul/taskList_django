@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Create Task | TaskList{% endblock  %}
+
+{% block content %}
+    <h1 class="text-center bg-info py-3 text-white">Create Task</h1>
+
+    <form action="{% url 'create_task' %}" method="post">
+         {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label" for="title">Title</label>
+            <input class="form-control" type="text" name="title" id="title">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <input class="form-control" type="text" name="description" id="description">
+        </div>
+        <div class="mb-3 d-flex align-item-center">
+            <label class="form-label me-3" for="is_completed">Status</label>
+            <input class="form-check-input" type="checkbox" name="is_completed" id="is_completed">
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-primary" value="Save">
+        </div>
+    </form>
+{% endblock  %}

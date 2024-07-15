@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit Task | Task List{% endblock  %}
+
+{% block content %}
+    <h1 class="text-center bg-info py-3 text-white">Edit Task</h1>
+
+    <form action="{% url 'update_task' task.id %}" method="post">
+         {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label" for="title">Title</label>
+            <input class="form-control" type="text" name="title" id="title" value="{{ task.title }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <input class="form-control" type="text" name="description" id="description" value="{{ task.description }}">
+        </div>
+        <div class="mb-3 d-flex align-item-center">
+            <label class="form-label me-3" for="is_completed">Status</label>
+            <input {% if task.is_completed %}checked{% endif %} class="form-check-input" type="checkbox" name="is_completed" id="is_completed">
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-primary" value="Update">
+        </div>
+    </form>
+{% endblock  %}

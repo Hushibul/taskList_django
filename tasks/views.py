@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Task
+from .models import Task, MongoTask
 
 # Create your views here.
 def home(request): 
     task_list = Task.objects.all()
-    return render(request, 'index.html', {'tasks': task_list})
+    mongo_tasks = MongoTask.objects.all()
+    return render(request, 'index.html', {'tasks': task_list, 'mongo_tasks': mongo_tasks})
 
 def create_task_page(request): 
     return render(request, 'create_task.html')
@@ -53,3 +54,20 @@ def delete_task(request, task_id):
     
  
     return redirect('home')
+
+def create_mongo_task(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        is_completed = request.POST.get('is_completed') == 'on'
+
+        mongo_task = MongoTask(
+            title=title,
+            description=description,
+            is_completed=is_completed
+        )
+        mongo_task.save()
+
+        return redirect('home')
+    return render(request, 'create_mongo_task.html')
+

@@ -28,4 +28,14 @@
      <p class="text-center">No tasks available</p>
 {% endif %}
 
+    <ul class="mt-5">
+        {% for task in mongo_tasks %}
+            <li class="{% if task.is_completed %}bg-success {% else %}bg-info{% endif %} rounded px-4 py-2 mb-2 d-flex align-item-center justify-content-between"> 
+                <span class="text-white">
+                    {{task.id}}.   {{ task.title }} --- {{ task.description }} 
+                </span>
+            </li>  
+        {% endfor %}
+    </ul>
+
 {% endblock  %}
